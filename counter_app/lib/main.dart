@@ -11,6 +11,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
+      // home: Scaffold(
+      //   appBar: AppBar(
+      //     backgroundColor: Colors.lightBlue,
+      //     centerTitle: true,
+      //     title: Text("Random Title"),
+      //   ),
+      // )
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -55,12 +62,42 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              DefaultTabController(
+                length: 3,
+                initialIndex: 2,
+                child: TabBar(
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.blue,
+                  tabs: [
+                    Tab(icon: Icon(Icons.directions_car), text: "Tab1"),
+                    Tab(icon: Icon(Icons.directions_bike),),
+                    Tab(icon: Icon(Icons.directions_bus), text: "Tab3"),
+                  ],
+                ),
+              ),
+              Table(
+                border: TableBorder.all(color: Colors.blue),
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                children: List.generate(1, (int index) {
+                  return TableRow(children: [
+                    Text("Column 1"),
+                    Text("Column 2"),
+                    TableCell(
+                      child: Text(
+                        "Column 3",
+                      ),
+                    ),
+                    Text("Column 4"),
+                    Text("Column 5"),
+                  ]);
+                }),
+              ),
               Container(
                 child: Image.asset('assets/img2.png'),
-                padding: EdgeInsets.all(30.0),
+                padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(0.25),
-                  borderRadius: BorderRadius.circular(40.0),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
               Text(
