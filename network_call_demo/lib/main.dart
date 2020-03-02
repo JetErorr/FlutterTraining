@@ -1,52 +1,90 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
-void main() => runApp(NetCall());
+Future<NewsItem> fetchNews() async {
+  final response = await http
+      .get('https://hacker-news.firebaseio.com/v0/item/22222117.json');
 
-class NetCall extends StatefulWidget {
-  @override
-  _NetCallState createState() => _NetCallState();
+  if (response.statusCode == 200) {
+    return NewsItem.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load news');
+  }
 }
 
-class _NetCallState extends State<NetCall> {
+class NewsItem {
+  final String by;
+  final String title;
+
+  NewsItem({this.by, this.title});
+
+  factory NewsItem.fromJson(Map<String, dynamic> json) {
+    return NewsItem(
+      by: json['by'],
+      title: json['title'],
+    );
+  }
+}
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Future<NewsItem> futureNews;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Fetch Data Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: Scaffold(
+        appBar: AppBar(
+          title: Text('Fetch Data Example'),
+        ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("API"),
-            ],
+          child: Card(
+            child: FutureBuilder<NewsItem>(
+              future: futureNews,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemBuilder: (context, i) {
+                      return Card(
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text('$i'),
+                            Text("Title: "+snapshot.data.title),
+                            Text("By: "+snapshot.data.by),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+            ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: () {
+            setState(() {
+              futureNews = fetchNews();
+            });
+          },
         ),
       ),
     );
   }
 }
-
-class Service implements  Services {
-
-}
-
-class NewsItem {
-  final int id;
-  final String title;
-
-  NewsItem(this.id, this.title);
-  factory NewsItem.fromJson(Map<String, dynamic> json) {
-    return NewsItem(json['id'] as int, json['title'] as String);
-  }
-}
-
-// ListView.builder(
-//           itemBuilder: (BuildContext context, int i) {
-//             return ListTile(
-//               contentPadding: EdgeInsets.all(2),
-//               title: Center(
-//                 child: Text('$i'),
-//               ),
-//             );
-//           },
-//         ),
