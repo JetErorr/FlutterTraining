@@ -12,19 +12,6 @@ void main() async {
   );
 }
 
-// class InfiniteListView extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SliverList(
-//       delegate: SliverChildBuilderDelegate(
-//         (BuildContext context, int i) {
-//           return Text('$i');
-//         },
-//       ),
-//     );
-//   }
-// }
-
 class InfiniteListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
