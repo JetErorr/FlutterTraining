@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,13 +10,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      // home: Scaffold(
-      //   appBar: AppBar(
-      //     backgroundColor: Colors.lightBlue,
-      //     centerTitle: true,
-      //     title: Text("Random Title"),
-      //   ),
-      // )
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }

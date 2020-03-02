@@ -12,12 +12,6 @@ class _Screen1State extends State<Screen1> {
   int qty;
 
   _showBottomSheet() {
-    // qty = await showModalBottomSheet(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return ScreenBottomSheet();
-    //   },
-    // );
     setState(() async {
       qty = await showModalBottomSheet(
         context: context,
@@ -179,9 +173,7 @@ class _Screen1State extends State<Screen1> {
             ),
             RaisedButton(
               child: Text(qty ?? "Jelly"),
-              // child: Text("Bottom Sheet"),
               onPressed: () => _showBottomSheet(),
-              // onPressed: () {},
             )
           ],
         ),
