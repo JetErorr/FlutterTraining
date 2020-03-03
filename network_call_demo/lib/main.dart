@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:json_annotation/json_annotation.dart';
+
+part 'main.g.dart';
 
 Future<NewsItem> fetchNews() async {
   final response = await http
@@ -14,18 +17,24 @@ Future<NewsItem> fetchNews() async {
   }
 }
 
+@JsonSerializable()
 class NewsItem {
   final String by;
   final String title;
 
   NewsItem({this.by, this.title});
 
-  factory NewsItem.fromJson(Map<String, dynamic> json) {
-    return NewsItem(
-      by: json['by'],
-      title: json['title'],
-    );
-  }
+  factory NewsItem.fromJson(Map<String, dynamic> json) =>
+      _$NewsItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewsItemToJson(this);
+
+  // factory NewsItem.fromJson(Map<String, dynamic> json) {
+  // return NewsItem(
+  //   by: json['by'],
+  //   title: json['title'],
+  // );
+  // }
 }
 
 void main() => runApp(MyApp());
@@ -63,8 +72,8 @@ class _MyAppState extends State<MyApp> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text('$i'),
-                            Text("Title: "+snapshot.data.title),
-                            Text("By: "+snapshot.data.by),
+                            Text("Title: " + snapshot.data.title),
+                            Text("By: " + snapshot.data.by),
                           ],
                         ),
                       );
