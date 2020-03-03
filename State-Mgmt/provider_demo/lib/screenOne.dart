@@ -14,19 +14,19 @@ class Screen1 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('${counter.getCounter()}'),
+            RaisedButton(
+              child: Text("Goto screen 2"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Screen2(),
+                  ),
+                );
+              },
+            ),
             Consumer<Counter>(builder: (context, counter, _) {
-              return RaisedButton(
-                child: Text("Goto screen 2"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Screen2(),
-                    ),
-                  );
-                },
-              );
+              return Text('${counter.getCounter()}');
             }),
             RaisedButton(
               child: Icon(Icons.add),

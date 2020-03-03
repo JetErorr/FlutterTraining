@@ -13,23 +13,23 @@ class Screen2 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('${counter.getCounter()}'),
+            Consumer<Counter>(
+              builder: (consumer, context, _) {
+                return Text('${counter.getCounter()}');
+              },
+            ),
             RaisedButton(
               child: Icon(Icons.add),
               onPressed: () {
                 counter.increment();
               },
             ),
-            Consumer<Counter>(
-              builder: (consumer, context, _) {
-                return RaisedButton(
-                  child: Icon(Icons.remove),
-                  onPressed: () {
-                    counter.decrement();
-                  },
-                );
+            RaisedButton(
+              child: Icon(Icons.remove),
+              onPressed: () {
+                counter.decrement();
               },
-            )
+            ),
           ],
         ),
       ),
