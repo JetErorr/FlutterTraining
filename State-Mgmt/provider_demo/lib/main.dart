@@ -9,12 +9,10 @@ void main() => runApp(ProviderDemo());
 class ProviderDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ChangeNotifierProvider<Counter>(
-        create: (_) => Counter(0),
-        child: MaterialApp(
-          home: Screen1(),
-        ),
+    return ChangeNotifierProvider<Counter>(
+      create: (_) => Counter(0),
+      child: MaterialApp(
+        home: Screen1(),
       ),
     );
   }

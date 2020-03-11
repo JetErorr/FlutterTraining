@@ -41,24 +41,7 @@ class _SliderModuleState extends State<SliderModule> {
             });
           },
         ),
-        RaisedButton(
-          onPressed: () {
-            Timer(Duration(seconds: 1), () {
-              if (_slideVal < 1.0) {
-                setState(() {
-                  _slideVal += 0.1;
-                });
-              } else if (_slideVal > 0.0) {
-                setState(() {
-                  _slideVal -= 0.1;
-                });
-              }
-            });
-            // Timer(Duration(seconds: 1), () {
-
-            // });
-          },
-        ),
+        RaisedButton(onPressed: () {})
       ],
     );
   }
